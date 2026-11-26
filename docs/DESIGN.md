@@ -1,6 +1,6 @@
 # Subscriber Sync for phpList — design
 
-Status: **draft**, nothing below is implemented yet.
+Status: implemented in 0.1.0 (except where marked *not in scope*).
 
 ## Goal
 
@@ -45,16 +45,23 @@ still be missing. The job therefore runs in a separate request, after the
 registration one has finished, and reloads the user with all its meta. This
 also keeps the HTTP call to phpList out of the visitor's registration.
 
-Scheduling uses Action Scheduler when it is available (WooCommerce and many
-plugins bundle it), otherwise WP-Cron single events. A real system cron is
-recommended in the readme because WP-Cron only runs on page views.
+Scheduling uses WP-Cron only (no Action Scheduler dependency): at the end of
+the registration request the plugin schedules `wpss_run_queue` and calls
+`spawn_cron()`, so the job runs a moment later in a separate request; a
+recurring event every five minutes handles retries. A real system cron is
+recommended in the readme because WP-Cron otherwise depends on page views.
+
+Jobs are claimed atomically (`pending` → `running`, with a 5-minute lock), so
+two cron runs never send the same job twice. The payload is stored on the
+first attempt and resent byte for byte, which keeps retries idempotent on the
+phpList side.
 
 ## Settings (Settings → phpList Sync)
 
 **Connection**
 - Endpoint URL, Key ID, Secret. The secret can be defined in `wp-config.php`
   (`WPSS_SECRET`) instead of being stored in the database; when the constant
-  exists the field is read-only.
+  exists the field is hidden. Saving tests the connection.
 - "Test connection" button → `ping`; fills the list and attribute drop-downs.
 
 **Subscription**
@@ -124,10 +131,14 @@ Mail is sent with `wp_mail()` as HTML, so any SMTP plugin applies.
 | user_id       | bigint        |
 | email         | varchar(190)  |
 | request_id    | char(36)      |
-| status        | pending / done / blacklisted / failed |
+| status        | pending / running / subscribed / blacklisted / skipped / failed |
 | attempts      | tinyint       |
 | next_attempt  | datetime (UTC)|
-| last_error    | text          |
+| payload       | longtext (JSON sent, frozen at first attempt) |
+| last_error    | text (error or note) |
+| subscriber_id | bigint (phpList id) |
+| notified      | tinyint (per-subscription mail sent) |
+| completed_at  | datetime (UTC), used by the digests |
 | created_at    | datetime (UTC)|
 | updated_at    | datetime (UTC)|
 

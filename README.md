@@ -3,7 +3,7 @@
 WordPress plugin that subscribes new WordPress users to a phpList list
 (public or private) and can e-mail the site owner a digest of new subscribers.
 
-> **Status:** early development. Not ready for production.
+> **Status:** 0.1.0, tested on a local WordPress 7.1.5 + phpList 3.7.0. Not yet used in production.
 
 - Design: [`docs/DESIGN.md`](docs/DESIGN.md)
 - Server side (phpList plugin) and wire protocol:
@@ -14,7 +14,9 @@ WordPress plugin that subscribes new WordPress users to a phpList list
 
 ```
 subscriber-sync-for-phplist.php   bootstrap
-includes/                         classes (to be written)
+includes/                         classes (settings, jobs table, client, queue,
+                                  notifications, privacy, admin screens)
+uninstall.php                     drops the table and the options
 languages/                        translations (.pot)
 docs/                             design notes, not shipped
 ```
