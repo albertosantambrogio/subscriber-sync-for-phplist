@@ -4,7 +4,7 @@
  * Plugin URI:        https://github.com/albertosantambrogio/subscriber-sync-for-phplist
  * Description:       Subscribes new WordPress users to a phpList list through a signed endpoint, with optional notification digests.
  * Version:           0.1.0
- * Requires at least: 6.0
+ * Requires at least: 6.2
  * Requires PHP:      7.4
  * Author:            Alberto Santambrogio
  * License:           GPL-2.0-or-later

@@ -304,7 +304,7 @@ class WPSS_Admin {
 	 */
 	private static function render_message() {
 		$msg = isset( $_GET['wpss_msg'] ) ? sanitize_key( wp_unslash( $_GET['wpss_msg'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		$err = isset( $_GET['wpss_err'] ) ? sanitize_text_field( rawurldecode( wp_unslash( $_GET['wpss_err'] ) ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$err = isset( $_GET['wpss_err'] ) ? sanitize_text_field( wp_unslash( $_GET['wpss_err'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$n   = isset( $_GET['wpss_n'] ) ? absint( $_GET['wpss_n'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		$map = array(
 			'saved'               => array( 'success', __( 'Settings saved.', 'subscriber-sync-for-phplist' ) ),

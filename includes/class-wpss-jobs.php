@@ -8,6 +8,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
+// The plugin's own queue table: direct queries are the only way to reach it, and
+// results must never come from the object cache (jobs change between requests).
+// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
 /**
  * Data access for {prefix}wpss_jobs.
  */
@@ -106,9 +110,8 @@ class WPSS_Jobs {
 	 */
 	public static function get( $id ) {
 		global $wpdb;
-		$table = self::table();
 
-		return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $id ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM %i WHERE id = %d', self::table(), $id ), ARRAY_A );
 	}
 
 	/**
@@ -131,12 +134,12 @@ class WPSS_Jobs {
 	 */
 	public static function claim( $id ) {
 		global $wpdb;
-		$table = self::table();
-		$now   = self::now();
+		$now = self::now();
 		// next_attempt doubles as the lock expiry while running.
 		$rows = $wpdb->query(
 			$wpdb->prepare(
-				"UPDATE {$table} SET status = 'running', next_attempt = %s, updated_at = %s WHERE id = %d AND status = 'pending' AND next_attempt <= %s", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				"UPDATE %i SET status = 'running', next_attempt = %s, updated_at = %s WHERE id = %d AND status = 'pending' AND next_attempt <= %s",
+				self::table(),
 				self::now( 300 ),
 				$now,
 				$id,
@@ -156,13 +159,12 @@ class WPSS_Jobs {
 	 */
 	public static function due( $limit = 20 ) {
 		global $wpdb;
-		$table = self::table();
-		$now   = self::now();
-		$wpdb->query( $wpdb->prepare( "UPDATE {$table} SET status = 'pending' WHERE status = 'running' AND next_attempt < %s", $now ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$now = self::now();
+		$wpdb->query( $wpdb->prepare( "UPDATE %i SET status = 'pending' WHERE status = 'running' AND next_attempt < %s", self::table(), $now ) );
 
 		return array_map(
 			'intval',
-			$wpdb->get_col( $wpdb->prepare( "SELECT id FROM {$table} WHERE status = 'pending' AND next_attempt <= %s ORDER BY id LIMIT %d", $now, $limit ) ) // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$wpdb->get_col( $wpdb->prepare( "SELECT id FROM %i WHERE status = 'pending' AND next_attempt <= %s ORDER BY id LIMIT %d", self::table(), $now, $limit ) )
 		);
 	}
 
@@ -173,9 +175,8 @@ class WPSS_Jobs {
 	 */
 	public static function has_due() {
 		global $wpdb;
-		$table = self::table();
 
-		return (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 FROM {$table} WHERE status = 'pending' AND next_attempt <= %s LIMIT 1", self::now() ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return (bool) $wpdb->get_var( $wpdb->prepare( "SELECT 1 FROM %i WHERE status = 'pending' AND next_attempt <= %s LIMIT 1", self::table(), self::now() ) );
 	}
 
 	/**
@@ -188,15 +189,17 @@ class WPSS_Jobs {
 	 */
 	public static function completed_between( $from, $to, array $statuses ) {
 		global $wpdb;
-		$table    = self::table();
-		$statuses = array_values( array_intersect( $statuses, self::STATUSES ) );
-		if ( ! $statuses ) {
-			return array();
-		}
-		$marks = implode( ',', array_fill( 0, count( $statuses ), '%s' ) );
-		$args  = array_merge( array( $from, $to ), $statuses );
+		$rows = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE completed_at > %s AND completed_at <= %s ORDER BY completed_at, id', self::table(), $from, $to ), ARRAY_A );
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} WHERE completed_at > %s AND completed_at <= %s AND status IN ({$marks}) ORDER BY completed_at, id", $args ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// A notification window holds few rows: filter by status here, keeping the SQL static.
+		return array_values(
+			array_filter(
+				(array) $rows,
+				function ( $row ) use ( $statuses ) {
+					return in_array( $row['status'], $statuses, true );
+				}
+			)
+		);
 	}
 
 	/**
@@ -210,18 +213,17 @@ class WPSS_Jobs {
 	public static function page( $status, $page, $per_page ) {
 		global $wpdb;
 		$table  = self::table();
-		$where  = '1=1';
-		$params = array();
+		$limit  = (int) $per_page;
+		$offset = (int) ( max( 1, $page ) - 1 ) * $limit;
 		if ( in_array( $status, self::STATUSES, true ) ) {
-			$where    = 'status = %s';
-			$params[] = $status;
+			$total = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE status = %s', $table, $status ) );
+			$rows  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE status = %s ORDER BY id DESC LIMIT %d OFFSET %d', $table, $status, $limit, $offset ), ARRAY_A );
+		} else {
+			$total = (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i', $table ) );
+			$rows  = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i ORDER BY id DESC LIMIT %d OFFSET %d', $table, $limit, $offset ), ARRAY_A );
 		}
-		$total    = (int) ( $params ? $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE {$where}", $params ) ) : $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		$params[] = (int) $per_page;
-		$params[] = (int) ( max( 1, $page ) - 1 ) * $per_page;
-		$rows     = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} WHERE {$where} ORDER BY id DESC LIMIT %d OFFSET %d", $params ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
-		return array( $rows, $total );
+		return array( (array) $rows, $total );
 	}
 
 	/**
@@ -231,9 +233,8 @@ class WPSS_Jobs {
 	 */
 	public static function counts() {
 		global $wpdb;
-		$table = self::table();
-		$out   = array_fill_keys( self::STATUSES, 0 );
-		foreach ( $wpdb->get_results( "SELECT status, COUNT(*) AS n FROM {$table} GROUP BY status", ARRAY_A ) as $row ) { // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$out = array_fill_keys( self::STATUSES, 0 );
+		foreach ( (array) $wpdb->get_results( $wpdb->prepare( 'SELECT status, COUNT(*) AS n FROM %i GROUP BY status', self::table() ), ARRAY_A ) as $row ) {
 			$out[ $row['status'] ] = (int) $row['n'];
 		}
 
@@ -247,9 +248,8 @@ class WPSS_Jobs {
 	 */
 	public static function purge( $days ) {
 		global $wpdb;
-		$table = self::table();
-		$days  = max( 1, (int) $days );
-		$wpdb->query( $wpdb->prepare( "DELETE FROM {$table} WHERE status IN ('subscribed','blacklisted','skipped','failed') AND updated_at < %s", self::now( -$days * DAY_IN_SECONDS ) ) ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$days = max( 1, (int) $days );
+		$wpdb->query( $wpdb->prepare( "DELETE FROM %i WHERE status IN ('subscribed','blacklisted','skipped','failed') AND updated_at < %s", self::table(), self::now( -$days * DAY_IN_SECONDS ) ) );
 	}
 
 	/**
@@ -260,9 +260,8 @@ class WPSS_Jobs {
 	 */
 	public static function by_email( $email ) {
 		global $wpdb;
-		$table = self::table();
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table} WHERE email = %s ORDER BY id", $email ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		return (array) $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM %i WHERE email = %s ORDER BY id', self::table(), $email ), ARRAY_A );
 	}
 
 	/**
@@ -277,3 +276,4 @@ class WPSS_Jobs {
 		return (int) $wpdb->delete( self::table(), array( 'email' => $email ), array( '%s' ) );
 	}
 }
+// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

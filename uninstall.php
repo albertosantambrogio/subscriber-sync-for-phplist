@@ -10,8 +10,8 @@ defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 global $wpdb;
 
-$wpss_table = $wpdb->prefix . 'wpss_jobs';
-$wpdb->query( "DROP TABLE IF EXISTS {$wpss_table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery.SchemaChange
+// Dropping the plugin's own table on uninstall: no API for this, nothing to cache.
+$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $wpdb->prefix . 'wpss_jobs' ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
 
 foreach ( array( 'wpss_settings', 'wpss_secret', 'wpss_ping_cache', 'wpss_last_digest', 'wpss_db_version' ) as $wpss_option ) {
 	delete_option( $wpss_option );

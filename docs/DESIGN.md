@@ -15,7 +15,7 @@ which exposes a signed endpoint. The wire format is in its
 
 ## Requirements
 
-- PHP 7.4+, WordPress 6.0+ (tested up to current).
+- PHP 7.4+, WordPress 6.2+ (tested up to current).
 - No hard dependency on Gravity Forms or any other plugin.
 - No outgoing request until an administrator has configured the endpoint.
 
