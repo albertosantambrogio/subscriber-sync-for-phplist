@@ -25,7 +25,8 @@ which exposes a signed endpoint. The wire format is in its
 user_register (priority 20)
    └─ eligibility check (role filter + consent rule + wpss_should_subscribe filter)
         └─ insert job row in {prefix}wpss_jobs (status = pending, new request_id)
-             └─ schedule single event wpss_process_job (+30 s)
+             └─ schedule single event wpss_process_job (as soon as possible,
+                i.e. after the registration request has finished)
 
 wpss_process_job
    └─ reload the user (meta is now complete)
@@ -36,10 +37,13 @@ wpss_process_job
                   └─ 429 / 5xx / network        → retry with back-off
 ```
 
-The 30-second delay matters: Gravity Forms User Registration (and other
-plugins) call `wp_insert_user()` first and write user meta afterwards, so at
-`user_register` time first name, last name and consent fields may still be
-missing.
+We hook WordPress' own `user_register`, but never read the user inside that
+hook: Gravity Forms User Registration (and many other plugins) call
+`wp_insert_user()` first and write user meta afterwards, in the same request.
+At `user_register` time first name, last name, consent and any custom meta may
+still be missing. The job therefore runs in a separate request, after the
+registration one has finished, and reloads the user with all its meta. This
+also keeps the HTTP call to phpList out of the visitor's registration.
 
 Scheduling uses Action Scheduler when it is available (WooCommerce and many
 plugins bundle it), otherwise WP-Cron single events. A real system cron is
