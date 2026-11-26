@@ -1,0 +1,7 @@
+.git
+.gitignore
+.distignore
+.editorconfig
+docs
+README.md
+.DS_Store
