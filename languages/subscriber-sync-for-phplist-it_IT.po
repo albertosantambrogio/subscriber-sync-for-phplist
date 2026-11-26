@@ -1,0 +1,521 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Subscriber Sync for phpList 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/albertosantambrogio/subscriber-sync-for-phplist/issues\n"
+"POT-Creation-Date: 2026-11-26 20:43+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: subscriber-sync-for-phplist\n"
+"PO-Revision-Date: 2026-11-26 20:43+0000\n"
+"Language: it_IT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/class-wpss-queue.php:113
+msgid "User no longer exists."
+msgstr "L’utente non esiste più."
+
+#: includes/class-wpss-queue.php:141
+msgid "The address unsubscribed from phpList earlier: not subscribed again."
+msgstr "L’indirizzo si era già disiscritto da phpList: non viene iscritto di nuovo."
+
+#. translators: %s: comma-separated attribute names
+#: includes/class-wpss-queue.php:144
+#, php-format
+msgid "Attributes ignored by phpList: %s"
+msgstr "Attributi ignorati da phpList: %s"
+
+#: includes/class-wpss-queue.php:215
+msgid "Role not selected for synchronisation."
+msgstr "Ruolo non selezionato per la sincronizzazione."
+
+#: includes/class-wpss-queue.php:221
+msgid "Consent rule not configured."
+msgstr "Regola del consenso non configurata."
+
+#. translators: %s: user meta key
+#: includes/class-wpss-queue.php:227
+#, php-format
+msgid "No consent (user meta \"%s\" does not match)."
+msgstr "Nessun consenso (il meta utente \"%s\" non corrisponde)."
+
+#: includes/class-wpss-queue.php:242
+msgid "Excluded by the wpss_should_subscribe filter."
+msgstr "Escluso dal filtro wpss_should_subscribe."
+
+#: includes/class-wpss-plugin.php:50
+msgid "Every five minutes (phpList Sync)"
+msgstr "Ogni cinque minuti (phpList Sync)"
+
+#. translators: placeholders are replaced when the e-mail is sent; keep them as they are.
+#: includes/class-wpss-settings.php:124
+msgid "[{site_name}] New subscribers: {count}"
+msgstr "[{site_name}] Nuovi iscritti: {count}"
+
+#: includes/class-wpss-settings.php:133
+msgid "New users subscribed to the phpList list ({period}):"
+msgstr "Nuovi utenti iscritti alla lista phpList ({period}):"
+
+#: includes/class-wpss-notifications.php:231
+msgid "No new subscribers in this period."
+msgstr "Nessun nuovo iscritto in questo periodo."
+
+#: includes/class-wpss-notifications.php:263 includes/class-wpss-privacy.php:77 includes/class-wpss-admin.php:561
+msgid "Date"
+msgstr "Data"
+
+#: includes/class-wpss-notifications.php:264 includes/class-wpss-privacy.php:69 includes/class-wpss-admin.php:563
+msgid "E-mail"
+msgstr "E-mail"
+
+#: includes/class-wpss-notifications.php:265
+msgid "Username"
+msgstr "Nome utente"
+
+#: includes/class-wpss-notifications.php:266
+msgid "Name"
+msgstr "Nome visualizzato"
+
+#: includes/class-wpss-notifications.php:267
+msgid "First name"
+msgstr "Nome"
+
+#: includes/class-wpss-notifications.php:268
+msgid "Last name"
+msgstr "Cognome"
+
+#: includes/class-wpss-notifications.php:269
+msgid "Role"
+msgstr "Ruolo"
+
+#: includes/class-wpss-notifications.php:270 includes/class-wpss-privacy.php:73 includes/class-wpss-admin.php:564
+msgid "Status"
+msgstr "Stato"
+
+#: includes/class-wpss-notifications.php:287
+msgid "Pending"
+msgstr "In attesa"
+
+#: includes/class-wpss-notifications.php:288
+msgid "Running"
+msgstr "In corso"
+
+#: includes/class-wpss-notifications.php:289
+msgid "Subscribed"
+msgstr "Iscritto"
+
+#: includes/class-wpss-notifications.php:290
+msgid "Unsubscribed earlier"
+msgstr "Già disiscritto"
+
+#: includes/class-wpss-notifications.php:291
+msgid "Skipped"
+msgstr "Escluso"
+
+#: includes/class-wpss-notifications.php:292
+msgid "Failed"
+msgstr "Non riuscito"
+
+#: includes/class-wpss-privacy.php:32 includes/class-wpss-privacy.php:47
+msgid "phpList synchronisation log"
+msgstr "Registro della sincronizzazione con phpList"
+
+#: includes/class-wpss-privacy.php:65
+msgid "phpList synchronisation"
+msgstr "Sincronizzazione con phpList"
+
+#: includes/class-wpss-privacy.php:103
+msgid "The phpList subscription, if any, must be removed in phpList."
+msgstr "L’eventuale iscrizione a phpList va rimossa in phpList."
+
+#: includes/class-wpss-privacy.php:115
+msgid "When you create an account on this site, your e-mail address and, depending on the configuration, other profile data (such as first and last name) are sent to our phpList newsletter system to subscribe you to our mailing list. You can unsubscribe at any time using the link included in every message."
+msgstr "Quando crei un account su questo sito, il tuo indirizzo e-mail e, a seconda della configurazione, altri dati del profilo (ad esempio nome e cognome) vengono inviati al nostro sistema di newsletter phpList per iscriverti alla nostra mailing list. Puoi cancellarti in qualsiasi momento con il link presente in ogni messaggio."
+
+#: includes/class-wpss-admin.php:39 includes/class-wpss-admin.php:40
+msgid "phpList Sync"
+msgstr "phpList Sync"
+
+#: includes/class-wpss-admin.php:54
+msgid "Settings"
+msgstr "Impostazioni"
+
+#. translators: %s: settings URL
+#: includes/class-wpss-admin.php:70
+#, php-format
+msgid "Subscriber Sync for phpList is not connected yet. <a href=\"%s\">Configure it</a>."
+msgstr "Subscriber Sync for phpList non è ancora collegato. <a href=\"%s\">Configuralo</a>."
+
+#: includes/class-wpss-admin.php:96
+msgid "You are not allowed to do this."
+msgstr "Non hai i permessi per questa operazione."
+
+#: includes/class-wpss-admin.php:283
+msgid "Connection"
+msgstr "Connessione"
+
+#: includes/class-wpss-admin.php:284
+msgid "Subscription"
+msgstr "Iscrizione"
+
+#: includes/class-wpss-admin.php:285
+msgid "Notifications"
+msgstr "Notifiche"
+
+#: includes/class-wpss-admin.php:286
+msgid "Log"
+msgstr "Registro"
+
+#: includes/class-wpss-admin.php:291
+msgid "Subscriber Sync for phpList"
+msgstr "Subscriber Sync for phpList"
+
+#: includes/class-wpss-admin.php:310
+msgid "Settings saved."
+msgstr "Impostazioni salvate."
+
+#: includes/class-wpss-admin.php:311
+msgid "Settings saved. Connection to phpList OK."
+msgstr "Impostazioni salvate. Collegamento con phpList riuscito."
+
+#. translators: %s: error message
+#: includes/class-wpss-admin.php:313
+#, php-format
+msgid "Settings saved, but the connection test failed: %s"
+msgstr "Impostazioni salvate, ma la prova di collegamento non è riuscita: %s"
+
+#. translators: %s: error message
+#: includes/class-wpss-admin.php:314
+msgid "Connection to phpList OK."
+msgstr "Collegamento con phpList riuscito."
+
+#. translators: %s: error message
+#: includes/class-wpss-admin.php:316
+#, php-format
+msgid "Connection test failed: %s"
+msgstr "Prova di collegamento non riuscita: %s"
+
+#. translators: %s: error message
+#: includes/class-wpss-admin.php:317
+msgid "The secret must be the hexadecimal string shown by phpList. Nothing was saved."
+msgstr "Il segreto deve essere la stringa esadecimale mostrata da phpList. Non è stato salvato nulla."
+
+#. translators: %d: number of jobs
+#: includes/class-wpss-admin.php:319
+#, php-format
+msgid "%d job processed."
+msgid_plural "%d jobs processed."
+msgstr[0] "%d iscrizione elaborata."
+msgstr[1] "%d iscrizioni elaborate."
+
+#. translators: %d: number of jobs
+#: includes/class-wpss-admin.php:320
+msgid "Job processed again."
+msgstr "Iscrizione elaborata di nuovo."
+
+#: includes/class-wpss-admin.php:321
+msgid "Test e-mail sent."
+msgstr "E-mail di prova inviata."
+
+#: includes/class-wpss-admin.php:322
+msgid "The test e-mail could not be sent: check the recipients and the site mail configuration."
+msgstr "Impossibile inviare l’e-mail di prova: controlla i destinatari e la configurazione della posta del sito."
+
+#: includes/class-wpss-admin.php:323
+msgid "Settings saved, but there is no valid recipient: no notification will be sent."
+msgstr "Impostazioni salvate, ma non c’è nessun destinatario valido: non verrà inviata nessuna notifica."
+
+#: includes/class-wpss-admin.php:324
+msgid "Something went wrong."
+msgstr "Si è verificato un errore."
+
+#: includes/class-wpss-admin.php:353
+msgid "Create a key for this site in phpList (Subscribers → WordPress sync keys, provided by the WP Subscriber Sync plugin for phpList) and paste the values here."
+msgstr "Crea una chiave per questo sito in phpList (Subscribers → WordPress sync keys, pagina del plugin WP Subscriber Sync per phpList) e incolla qui i valori."
+
+#: includes/class-wpss-admin.php:356
+msgid "Endpoint URL"
+msgstr "URL dell’endpoint"
+
+#: includes/class-wpss-admin.php:359
+msgid "The address is not HTTPS: phpList refuses plain HTTP unless explicitly allowed for development."
+msgstr "L’indirizzo non è HTTPS: phpList rifiuta le richieste in chiaro, salvo autorizzazione esplicita per lo sviluppo."
+
+#: includes/class-wpss-admin.php:362
+msgid "Key ID"
+msgstr "ID chiave"
+
+#: includes/class-wpss-admin.php:364
+msgid "Secret"
+msgstr "Segreto"
+
+#: includes/class-wpss-admin.php:366
+msgid "Defined in wp-config.php (WPSS_SECRET)."
+msgstr "Definito in wp-config.php (WPSS_SECRET)."
+
+#: includes/class-wpss-admin.php:369
+msgid "saved — leave empty to keep it"
+msgstr "salvato — lascia vuoto per mantenerlo"
+
+#: includes/class-wpss-admin.php:370
+msgid "Stored in the database. To keep it out of the database, define WPSS_SECRET in wp-config.php instead."
+msgstr "Viene salvato nel database. Per tenerlo fuori dal database, definisci invece WPSS_SECRET in wp-config.php."
+
+#: includes/class-wpss-admin.php:373
+msgid "Save and test"
+msgstr "Salva e prova"
+
+#: includes/class-wpss-admin.php:378
+msgid "Test connection"
+msgstr "Prova il collegamento"
+
+#: includes/class-wpss-admin.php:383
+msgid "Last successful test"
+msgstr "Ultima prova riuscita"
+
+#: includes/class-wpss-admin.php:384
+msgid "When"
+msgstr "Quando"
+
+#: includes/class-wpss-admin.php:385
+msgid "Server"
+msgstr "Server"
+
+#: includes/class-wpss-admin.php:386
+msgid "New subscribers are"
+msgstr "I nuovi iscritti sono"
+
+#: includes/class-wpss-admin.php:386
+msgid "confirmed immediately"
+msgstr "confermati subito"
+
+#: includes/class-wpss-admin.php:386
+msgid "left unconfirmed"
+msgstr "lasciati non confermati"
+
+#: includes/class-wpss-admin.php:386
+msgid "(decided in phpList)"
+msgstr "(lo decide phpList)"
+
+#: includes/class-wpss-admin.php:389
+msgid "default"
+msgstr "predefinita"
+
+#: includes/class-wpss-admin.php:391
+msgid "Lists"
+msgstr "Liste"
+
+#: includes/class-wpss-admin.php:396
+msgid "Attributes"
+msgstr "Attributi"
+
+#: includes/class-wpss-admin.php:414
+msgid "phpList list"
+msgstr "Lista phpList"
+
+#: includes/class-wpss-admin.php:416
+msgid "Default list(s) of the key"
+msgstr "Lista/e predefinita/e della chiave"
+
+#: includes/class-wpss-admin.php:422
+msgid "Test the connection to choose from the lists allowed for this site. 0 = default list(s) of the key."
+msgstr "Prova il collegamento per scegliere tra le liste ammesse per questo sito. 0 = lista/e predefinita/e della chiave."
+
+#: includes/class-wpss-admin.php:427
+msgid "Roles"
+msgstr "Ruoli"
+
+#: includes/class-wpss-admin.php:431
+msgid "Only new users with one of these roles are subscribed. None selected = every role."
+msgstr "Vengono iscritti solo i nuovi utenti con uno di questi ruoli. Nessuno selezionato = tutti i ruoli."
+
+#: includes/class-wpss-admin.php:434
+msgid "Consent"
+msgstr "Consenso"
+
+#: includes/class-wpss-admin.php:435
+msgid "Subscribe every new user (consent is collected at registration, e.g. a mandatory checkbox)"
+msgstr "Iscrivi ogni nuovo utente (il consenso viene raccolto alla registrazione, ad esempio con una casella obbligatoria)"
+
+#: includes/class-wpss-admin.php:436
+msgid "Only if a user meta field has a given value"
+msgstr "Solo se un meta utente ha un certo valore"
+
+#: includes/class-wpss-admin.php:439
+msgid "Meta key"
+msgstr "Chiave meta"
+
+#: includes/class-wpss-admin.php:441
+msgid "equals"
+msgstr "uguale a"
+
+#: includes/class-wpss-admin.php:444
+msgid "With Gravity Forms User Registration, map the consent field to a user meta in the registration feed and use that key here."
+msgstr "Con Gravity Forms User Registration, associa il campo del consenso a un meta utente nel feed di registrazione e usa qui quella chiave."
+
+#: includes/class-wpss-admin.php:448
+msgid "Fields"
+msgstr "Campi"
+
+#: includes/class-wpss-admin.php:449
+msgid "The e-mail address is always sent. Choose what else to copy into phpList attributes. For a user meta field, type its key (e.g. meta:profession)."
+msgstr "L’indirizzo e-mail viene sempre inviato. Scegli cos’altro copiare negli attributi phpList. Per un meta utente, scrivi la sua chiave (ad esempio meta:professione)."
+
+#: includes/class-wpss-admin.php:459
+msgid "WordPress"
+msgstr "WordPress"
+
+#: includes/class-wpss-admin.php:459
+msgid "phpList attribute"
+msgstr "Attributo phpList"
+
+#: includes/class-wpss-admin.php:469
+msgid "Empty rows are ignored; save to get more empty rows."
+msgstr "Le righe vuote vengono ignorate; salva per avere altre righe vuote."
+
+#: includes/class-wpss-admin.php:471
+msgid "Keep the log for"
+msgstr "Conserva il registro per"
+
+#: includes/class-wpss-admin.php:471
+msgid "days"
+msgstr "giorni"
+
+#: includes/class-wpss-admin.php:487
+msgid "Send subscription notifications"
+msgstr "Invia notifiche delle iscrizioni"
+
+#: includes/class-wpss-admin.php:487
+msgid "Enabled"
+msgstr "Attive"
+
+#: includes/class-wpss-admin.php:490
+msgid "For every subscription"
+msgstr "A ogni iscrizione"
+
+#: includes/class-wpss-admin.php:491
+msgid "Daily summary"
+msgstr "Riepilogo giornaliero"
+
+#: includes/class-wpss-admin.php:492
+msgid "Weekly summary (Monday)"
+msgstr "Riepilogo settimanale (lunedì)"
+
+#: includes/class-wpss-admin.php:493
+msgid "Monthly summary (1st of the month)"
+msgstr "Riepilogo mensile (il 1° del mese)"
+
+#: includes/class-wpss-admin.php:495
+msgid "Frequency"
+msgstr "Frequenza"
+
+#: includes/class-wpss-admin.php:499
+msgid "Summaries are sent at or after"
+msgstr "I riepiloghi partono alle o dopo le"
+
+#: includes/class-wpss-admin.php:503
+msgid "(site time zone; WP-Cron needs visits or a system cron)"
+msgstr "(fuso orario del sito; WP-Cron ha bisogno di visite o di un cron di sistema)"
+
+#: includes/class-wpss-admin.php:506
+msgid "Recipients"
+msgstr "Destinatari"
+
+#: includes/class-wpss-admin.php:506
+msgid "Separate several addresses with commas."
+msgstr "Separa più indirizzi con una virgola."
+
+#: includes/class-wpss-admin.php:507
+msgid "Subject"
+msgstr "Oggetto"
+
+#: includes/class-wpss-admin.php:508
+msgid "Message"
+msgstr "Messaggio"
+
+#: includes/class-wpss-admin.php:519
+msgid "Placeholders: <code>{site_name}</code>, <code>{site_url}</code>, <code>{period}</code>, <code>{count}</code>.<br>Table of new subscribers: <code>[wpss_new_subscribers columns=\"date,email,first_name,last_name\"]</code>. Columns: <code>date</code>, <code>email</code>, <code>user_login</code>, <code>display_name</code>, <code>first_name</code>, <code>last_name</code>, <code>role</code>, <code>status</code>, <code>meta:your_key</code>. Optional <code>status=\"subscribed\"</code> (or <code>blacklisted</code>, <code>failed</code>, <code>all</code>)."
+msgstr "Segnaposto: <code>{site_name}</code>, <code>{site_url}</code>, <code>{period}</code>, <code>{count}</code>.<br>Tabella dei nuovi iscritti: <code>[wpss_new_subscribers columns=\"date,email,first_name,last_name\"]</code>. Colonne: <code>date</code> (data), <code>email</code>, <code>user_login</code> (nome utente), <code>display_name</code> (nome visualizzato), <code>first_name</code> (nome), <code>last_name</code> (cognome), <code>role</code> (ruolo), <code>status</code> (stato), <code>meta:tua_chiave</code>. Facoltativo <code>status=\"subscribed\"</code> (oppure <code>blacklisted</code>, <code>failed</code>, <code>all</code>)."
+
+#: includes/class-wpss-admin.php:522
+msgid "Empty summaries"
+msgstr "Riepiloghi vuoti"
+
+#: includes/class-wpss-admin.php:522
+msgid "Do not send a summary when there are no new subscribers"
+msgstr "Non inviare il riepilogo quando non ci sono nuovi iscritti"
+
+#: includes/class-wpss-admin.php:523
+msgid "Include"
+msgstr "Includi"
+
+#: includes/class-wpss-admin.php:524
+msgid "Only successful subscriptions"
+msgstr "Solo le iscrizioni riuscite"
+
+#: includes/class-wpss-admin.php:525
+msgid "Also addresses that had unsubscribed earlier and failed subscriptions"
+msgstr "Anche gli indirizzi già disiscritti e le iscrizioni non riuscite"
+
+#: includes/class-wpss-admin.php:531
+msgid "Sends the saved template now, with the subscriptions since the last summary (nothing is marked as sent)."
+msgstr "Invia adesso il modello salvato, con le iscrizioni dall’ultimo riepilogo (niente viene segnato come inviato)."
+
+#: includes/class-wpss-admin.php:532
+msgid "Send a test now"
+msgstr "Invia una prova ora"
+
+#: includes/class-wpss-admin.php:547
+msgid "All"
+msgstr "Tutti"
+
+#: includes/class-wpss-admin.php:557
+msgid "Process the queue now"
+msgstr "Elabora la coda adesso"
+
+#: includes/class-wpss-admin.php:562
+msgid "User"
+msgstr "Utente"
+
+#: includes/class-wpss-admin.php:565
+msgid "Attempts"
+msgstr "Tentativi"
+
+#: includes/class-wpss-admin.php:566
+msgid "Notes"
+msgstr "Note"
+
+#: includes/class-wpss-admin.php:569
+msgid "Nothing here yet."
+msgstr "Ancora niente."
+
+#: includes/class-wpss-admin.php:574
+msgid "deleted"
+msgstr "eliminato"
+
+#. translators: %s: date and time
+#: includes/class-wpss-admin.php:578
+#, php-format
+msgid "next attempt %s"
+msgstr "prossimo tentativo %s"
+
+#: includes/class-wpss-admin.php:585
+msgid "Retry"
+msgstr "Riprova"
+
+#: includes/class-wpss-admin.php:612
+msgid "Failed requests are retried automatically after 1 minute, 5 minutes, 30 minutes, 2 hours and 12 hours. \"Retry\" evaluates the rules again (useful after changing the consent rule or the roles)."
+msgstr "Le richieste non riuscite vengono ritentate automaticamente dopo 1 minuto, 5 minuti, 30 minuti, 2 ore e 12 ore. \"Riprova\" valuta di nuovo le regole (utile dopo aver cambiato la regola del consenso o i ruoli)."
+
+#: includes/class-wpss-client.php:33
+msgid "The connection is not configured."
+msgstr "Il collegamento non è configurato."
+
+#: includes/class-wpss-client.php:75
+msgid "Unexpected answer: is the endpoint URL right?"
+msgstr "Risposta inattesa: l’URL dell’endpoint è corretto?"
+
+#. Description of the plugin
+#: subscriber-sync-for-phplist.php
+msgid "Subscribes new WordPress users to a phpList list through a signed endpoint, with optional notification digests."
+msgstr "Iscrive i nuovi utenti WordPress a una lista phpList tramite un endpoint firmato, con riepiloghi di notifica facoltativi."
